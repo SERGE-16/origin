@@ -2,6 +2,55 @@
 
 Implement the model functions for Assignment 2. The visualizer works independently
 of those functions; it draws a supplied state without advancing the simulation.
+
+--------------------------------------------------------------------------------
+Derivation notes (kept here rather than in the report, since they explain the
+exact formulas used below)
+--------------------------------------------------------------------------------
+Coordinates match ``visualize``: theta is measured clockwise from upward
+vertical, the stance foot is fixed, and the hub (point mass / hip) sits at
+
+    hub = foot + length * [sin(theta), cos(theta)]
+
+so theta > 0 means the hub has swung out ahead of the stance foot in +x
+(downhill/forward), and theta < 0 means the hub is still trailing behind it.
+The ground through the stance foot has slope ``incline`` (positive = downhill
+to the right), and the swing leg hangs at angle ``theta - 2*angle_of_attack``
+from vertical (i.e. angle_of_attack, alpha, is HALF the interior angle between
+the two legs, exactly like the rimless wheel).
+
+1) Continuous dynamics (single support, point-mass pendulum pivoting about the
+   fixed stance foot), with an ankle torque tau summed in:
+
+       theta_ddot = (m g l sin(theta) + tau) / (m l^2)
+
+   This is an *inverted* pendulum: theta = 0 (upright) is an unstable
+   equilibrium, since theta_ddot has the same sign as theta for small theta.
+
+2) Touchdown guard. Working out when the swing foot's height matches the
+   sloped ground (see the writeup / whiteboard derivation) gives the same
+   clean result as the fixed-alpha rimless wheel, generalized to a per-step
+   alpha:
+
+       theta_td = alpha + incline
+
+   i.e. touchdown happens when the (still-fixed) old stance leg reaches
+   alpha + incline from vertical -- independent of the leg's angular velocity.
+
+3) Impact map. Modeling contact as an instantaneous, non-slipping, inelastic
+   collision that removes the radial (leg-parallel) momentum component and
+   conserves the tangential component resolved onto the new leg direction
+   gives the standard rimless-wheel result, again generalized to per-step
+   alpha:
+
+       theta+           = incline - alpha        (new stance angle, from vertical)
+       theta_dot+        = theta_dot- * cos(2*alpha)
+
+   (theta_old - theta_new = 2*alpha at the instant of impact, which is where
+   the cos(2*alpha) factor comes from.)
+
+These three formulas are exactly what event_guard/event_dynamics/dynamics
+implement below.
 """
 
 import matplotlib.pyplot as plt
@@ -9,24 +58,101 @@ import numpy as np
 
 
 def generate_params():
-    pass
+    """Default parameters for the inverted pendulum walker.
+
+    ``incline`` is the assignment's slope gamma = 0.06 rad. ``angle_of_attack``
+    and ``ankle_torque`` are control inputs -- they are given sane defaults here
+    (mid-range alpha, zero ankle torque) but are expected to be overwritten
+    every step/timestep by whatever policy is driving the simulation.
+    """
+    alpha_bounds = (np.pi / 8, np.pi / 7)
+    torque_bound_fracs = (-0.1, 0.05)  # multiples of m*g*l
+
+    params = {
+        "gravity": 9.81,  # gravity, m/s^2
+        "length": 1.0,  # leg length, m
+        "mass": 1.0,  # point mass at the hub, kg
+        "incline": 0.06,  # ground slope gamma, rad (positive = downhill to +x)
+        "angle_of_attack": float(np.mean(alpha_bounds)),  # alpha, rad (control input, per step)
+        "ankle_torque": 0.0,  # tau, N*m (control input, per timestep)
+        "alpha_bounds": alpha_bounds,
+        "torque_bound_fracs": torque_bound_fracs,
+    }
+    return params
+
+
+def torque_bounds(params):
+    """Return (tau_min, tau_max) in N*m from the stored fractions of m*g*l."""
+    mgl = params["mass"] * params["gravity"] * params["length"]
+    frac_min, frac_max = params["torque_bound_fracs"]
+    return frac_min * mgl, frac_max * mgl
 
 
 def dynamics(t, state, params):
-    # TODO: implement the state derivative.
-    return np.array([0.0, 0.0])
+    """Single-support (stance-phase) dynamics: inverted pendulum + ankle torque."""
+    gravity = params["gravity"]
+    length = params["length"]
+    mass = params["mass"]
+    ankle_torque = params.get("ankle_torque", 0.0)
+
+    angle = state[0]
+    angular_velocity = state[1]
+
+    angular_acceleration = (
+        mass * gravity * length * np.sin(angle) + ankle_torque
+    ) / (mass * length**2)
+
+    state_derivative = np.array([angular_velocity, angular_acceleration])
+    return state_derivative
 
 
 def event_guard(previous_state, next_state, params):
-    pass
+    """Touchdown guard: True iff theta crossed alpha + incline this step.
+
+    theta increases monotonically to alpha + incline during a normal forward
+    stance phase (see module docstring), so a simple sign-crossing test on
+    theta - theta_td is sufficient and robust to the fixed integration step.
+    """
+    theta_td = params["angle_of_attack"] + params["incline"]
+    return previous_state[0] < theta_td <= next_state[0]
 
 
 def event_dynamics(state, params):
-    pass
+    """Touchdown impact map: pivot from the old stance foot to the new one.
+
+    ``state`` is the pre-impact state [theta-, theta_dot-] (should satisfy
+    theta- == angle_of_attack + incline, up to integration tolerance).
+    Returns the post-impact state [theta+, theta_dot+] measured about the new
+    stance foot (formerly the swing foot).
+    """
+    alpha = params["angle_of_attack"]
+    incline = params["incline"]
+    _, angular_velocity_minus = state
+
+    theta_plus = incline - alpha
+    angular_velocity_plus = angular_velocity_minus * np.cos(2 * alpha)
+    return np.array([theta_plus, angular_velocity_plus])
 
 
 def calculate_energy(state, params):
-    pass
+    """Compute energies for a state ``(2,)`` or trajectory ``(2, N)``.
+
+    Total mechanical energy E = KE + PE is conserved whenever ankle_torque=0
+    (verify: dE/dt = m l^2 theta_dot theta_ddot + m g l (-sin theta) theta_dot
+    = m l^2 theta_dot [theta_ddot - (g/l) sin theta] = 0 under the dynamics
+    above). It jumps down at each touchdown impact (theta_dot shrinks by
+    cos(2*alpha) < 1), which is the walker's only source of dissipation.
+    """
+    gravity = params["gravity"]
+    length = params["length"]
+    mass = params["mass"]
+
+    angle = state[0]  # indexes entire row "vectorized" if state is (2, N)
+    angular_velocity = state[1]
+
+    kinetic_energy = 0.5 * mass * (length * angular_velocity) ** 2
+    potential_energy = mass * gravity * length * np.cos(angle)
+    return kinetic_energy, potential_energy
 
 
 def visualize(
