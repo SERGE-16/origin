@@ -4,6 +4,8 @@ All numbers and figures below come from a single run of `run_pipeline()` (the sh
 
 Model parameters for this run: incline `γ = 0.06 rad`, angle-of-attack bounds `α ∈ [π/8, π/7] ≈ [0.3927, 0.4488] rad`, ankle-torque bounds `τ ∈ [−0.1mgℓ, 0.05mgℓ] ≈ [−0.981, 0.4905] N·m`.
 
+![Sketches](report_figures/Sketch_robots_assignment_2.jpg)
+
 ## 1. Region of attraction of the ankle controller
 
 ![Region of attraction](report_figures/roa.png)
