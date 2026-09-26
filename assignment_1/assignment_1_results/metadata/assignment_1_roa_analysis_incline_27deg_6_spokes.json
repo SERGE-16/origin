@@ -1,0 +1,40 @@
+{
+  "results_file": "assignment_1_roa_results_incline_27deg_6_spokes.npz",
+  "roa_figure": "assignment_1_roa_map_incline_27deg_6_spokes.png",
+  "poincare_figure": "assignment_1_poincare_map_incline_27deg_6_spokes.png",
+  "fixed_point_rad_s": 1.719831402137036,
+  "fixed_point_deg_s": 98.53908081651883,
+  "floquet_multiplier": 0.249105068336676,
+  "multiplier_fit_intercept_rad_s": 1.2917214623321807,
+  "multiplier_method": "median-binned least-squares fit around fixed point",
+  "multiplier_fit_half_width_deg_s": 2.0,
+  "multiplier_fit_point_count": 335806,
+  "multiplier_fit_bin_count": 20,
+  "return_map_pair_count": 366775,
+  "convergence_counts": {
+    "SETTLED_STABLE": 232,
+    "SETTLED_UNSTABLE": 0,
+    "CYCLED": 8813
+  },
+  "simulation_params": {
+    "timestep": 0.001,
+    "sim_time": 20.0,
+    "full_stop_velocity_tolerance": 1e-05
+  },
+  "model_params": {
+    "gravity": 9.81,
+    "slope_incline": 0.47123889803846897,
+    "num_spokes": 6,
+    "spoke_length": 1.0,
+    "center_mass": 1.0
+  },
+  "angle_steps": 45,
+  "angular_velocity_steps": 201,
+  "num_workers": 12,
+  "trial_count": 9045,
+  "convergences": [
+    "SETTLED_STABLE",
+    "SETTLED_UNSTABLE",
+    "CYCLED"
+  ]
+}

@@ -1,0 +1,284 @@
+[
+  {
+    "initial_velocity": 0.41341504568653525,
+    "table_steps": 1,
+    "actual_steps": 1,
+    "reached_target": true,
+    "trace": [
+      {
+        "velocity": 0.41341504568653525,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 0.04274334615233747,
+        "status": "returned"
+      }
+    ]
+  },
+  {
+    "initial_velocity": 0.8268300913730705,
+    "table_steps": 1,
+    "actual_steps": 1,
+    "reached_target": true,
+    "trace": [
+      {
+        "velocity": 0.8268300913730705,
+        "alpha": 0.4167418826190542,
+        "next_velocity": 0.2536679230304838,
+        "status": "returned"
+      }
+    ]
+  },
+  {
+    "initial_velocity": 1.2254803139993724,
+    "table_steps": 1,
+    "actual_steps": 1,
+    "reached_target": true,
+    "trace": [
+      {
+        "velocity": 1.2254803139993724,
+        "alpha": 0.4487989505128276,
+        "next_velocity": 0.29394247170641535,
+        "status": "returned"
+      }
+    ]
+  },
+  {
+    "initial_velocity": 1.2402451370596057,
+    "table_steps": 2,
+    "actual_steps": 2,
+    "reached_target": true,
+    "trace": [
+      {
+        "velocity": 1.2402451370596057,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 0.8258202927229168,
+        "status": "returned"
+      },
+      {
+        "velocity": 0.8258202927229168,
+        "alpha": 0.4167418826190542,
+        "next_velocity": 0.26104179859925314,
+        "status": "returned"
+      }
+    ]
+  },
+  {
+    "initial_velocity": 1.7570139441677748,
+    "table_steps": 2,
+    "actual_steps": 2,
+    "reached_target": true,
+    "trace": [
+      {
+        "velocity": 1.7570139441677748,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 1.2072723969365549,
+        "status": "returned"
+      },
+      {
+        "velocity": 1.2072723969365549,
+        "alpha": 0.4487989505128276,
+        "next_velocity": 0.26566945968737465,
+        "status": "returned"
+      }
+    ]
+  },
+  {
+    "initial_velocity": 2.273782751275944,
+    "table_steps": 2,
+    "actual_steps": 2,
+    "reached_target": false,
+    "trace": [
+      {
+        "velocity": 2.273782751275944,
+        "alpha": 0.4487989505128276,
+        "next_velocity": 1.2304843976851247,
+        "status": "returned"
+      },
+      {
+        "velocity": 1.2304843976851247,
+        "alpha": 0.4487989505128276,
+        "next_velocity": 0.30237503490864115,
+        "status": "returned"
+      }
+    ]
+  },
+  {
+    "initial_velocity": 2.288547574336177,
+    "table_steps": 3,
+    "actual_steps": 3,
+    "reached_target": true,
+    "trace": [
+      {
+        "velocity": 2.288547574336177,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 1.5944207651818496,
+        "status": "returned"
+      },
+      {
+        "velocity": 1.5944207651818496,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 1.0882408268055392,
+        "status": "returned"
+      },
+      {
+        "velocity": 1.0882408268055392,
+        "alpha": 0.4407846835393842,
+        "next_velocity": 0.22751039149513505,
+        "status": "returned"
+      }
+    ]
+  },
+  {
+    "initial_velocity": 3.056318373468314,
+    "table_steps": 3,
+    "actual_steps": 3,
+    "reached_target": true,
+    "trace": [
+      {
+        "velocity": 3.056318373468314,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 2.143098244114225,
+        "status": "returned"
+      },
+      {
+        "velocity": 2.143098244114225,
+        "alpha": 0.43677755005266256,
+        "next_velocity": 1.2256832815831769,
+        "status": "returned"
+      },
+      {
+        "velocity": 1.2256832815831769,
+        "alpha": 0.4487989505128276,
+        "next_velocity": 0.2948011849725112,
+        "status": "returned"
+      }
+    ]
+  },
+  {
+    "initial_velocity": 3.824089172600451,
+    "table_steps": 3,
+    "actual_steps": 4,
+    "reached_target": true,
+    "trace": [
+      {
+        "velocity": 3.824089172600451,
+        "alpha": 0.4487989505128276,
+        "next_velocity": 2.279047765867818,
+        "status": "returned"
+      },
+      {
+        "velocity": 2.279047765867818,
+        "alpha": 0.4487989505128276,
+        "next_velocity": 1.236040329733202,
+        "status": "returned"
+      },
+      {
+        "velocity": 1.236040329733202,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 0.8235487111207843,
+        "status": "returned"
+      },
+      {
+        "velocity": 0.8235487111207843,
+        "alpha": 0.4167418826190542,
+        "next_velocity": 0.24720702224090055,
+        "status": "returned"
+      }
+    ]
+  },
+  {
+    "initial_velocity": 3.8388539956606844,
+    "table_steps": 4,
+    "actual_steps": 4,
+    "reached_target": true,
+    "trace": [
+      {
+        "velocity": 3.8388539956606844,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 2.7001659120315042,
+        "status": "returned"
+      },
+      {
+        "velocity": 2.7001659120315042,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 1.8867694891784585,
+        "status": "returned"
+      },
+      {
+        "velocity": 1.8867694891784585,
+        "alpha": 0.40872761564561083,
+        "next_velocity": 1.216228257721473,
+        "status": "returned"
+      },
+      {
+        "velocity": 1.216228257721473,
+        "alpha": 0.4487989505128276,
+        "next_velocity": 0.27957695547791483,
+        "status": "returned"
+      }
+    ]
+  },
+  {
+    "initial_velocity": 4.134150456865353,
+    "table_steps": 4,
+    "actual_steps": 4,
+    "reached_target": false,
+    "trace": [
+      {
+        "velocity": 4.134150456865353,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 2.9099198874496275,
+        "status": "returned"
+      },
+      {
+        "velocity": 2.9099198874496275,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 2.0394705435145952,
+        "status": "returned"
+      },
+      {
+        "velocity": 2.0394705435145952,
+        "alpha": 0.4247561495924975,
+        "next_velocity": 1.2322142087943422,
+        "status": "returned"
+      },
+      {
+        "velocity": 1.2322142087943422,
+        "alpha": 0.4487989505128276,
+        "next_velocity": 0.3094163886217375,
+        "status": "returned"
+      }
+    ]
+  },
+  {
+    "initial_velocity": 4.4294469180700204,
+    "table_steps": 4,
+    "actual_steps": 4,
+    "reached_target": true,
+    "trace": [
+      {
+        "velocity": 4.4294469180700204,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 3.1195069904974106,
+        "status": "returned"
+      },
+      {
+        "velocity": 3.1195069904974106,
+        "alpha": 0.39269908169872414,
+        "next_velocity": 2.187271941379748,
+        "status": "returned"
+      },
+      {
+        "velocity": 2.187271941379748,
+        "alpha": 0.4407846835393842,
+        "next_velocity": 1.226343969465464,
+        "status": "returned"
+      },
+      {
+        "velocity": 1.226343969465464,
+        "alpha": 0.4487989505128276,
+        "next_velocity": 0.2975801404208045,
+        "status": "returned"
+      }
+    ]
+  }
+]
