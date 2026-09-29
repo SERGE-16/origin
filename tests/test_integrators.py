@@ -3,7 +3,7 @@ import inspect
 import numpy as np
 import pytest
 
-import integrators
+from Assignment_0 import integrators
 
 
 def test_constant_derivative():

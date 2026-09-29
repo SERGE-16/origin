@@ -2,7 +2,7 @@ import inspect
 
 import numpy as np
 
-import models
+from Assignment_0 import models
 
 
 def test_model_interface():
