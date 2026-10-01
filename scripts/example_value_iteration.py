@@ -166,7 +166,7 @@ length = params["length"]
 animation_fig, animation_axis = plt.subplots(figsize=(4, 4), layout="constrained")
 animation_axis.set(
     xlim=(-1.2 * length, 1.2 * length),
-    ylim=(-1.2 * length, 1.2 * length),
+    ylim=(-1.2 * length, 1.1 * length),
     xlabel="x (m)",
     ylabel="y (m)",
     aspect="equal",
