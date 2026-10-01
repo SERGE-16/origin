@@ -1,0 +1,24 @@
+{
+  "seed": 42,
+  "num_starts": 4000,
+  "random_angles": false,
+  "velocity_range": [
+    0.0,
+    4.4294469180700204
+  ],
+  "timestep": 0.001,
+  "walk_time": 10.0,
+  "balance_time": 5.0,
+  "target_success": 0.95,
+  "roa_file": "/home/sloth/Programming/CORNELL_COURSES/MAE5110-LEGGEDROBOTS/MAE5110CodeAssignments/assignment_2/output/roa/roa_results.npz",
+  "selection": "Smallest tested table meeting the observed success target",
+  "success_criterion": "Reach balancing, then no collisions during balance_time",
+  "controller": "roa_gated",
+  "balancing_check": "Every timestep and upright crossing; all surrounding RoA corners successful",
+  "selected": {
+    "alpha_samples": 2,
+    "velocity_samples": 18,
+    "success_rate": 0.98275,
+    "policy_file": "/home/sloth/Programming/CORNELL_COURSES/MAE5110-LEGGEDROBOTS/MAE5110CodeAssignments/assignment_2/output/grid_search/policy_2x18.npz"
+  }
+}

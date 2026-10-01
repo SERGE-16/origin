@@ -1,0 +1,5 @@
+alpha_samples,velocity_samples,table_size,successes,trials,success_rate
+2,11,22,3656,4000,0.914
+2,18,36,3931,4000,0.98275
+2,22,44,3989,4000,0.99725
+2,23,46,4000,4000,1.0
