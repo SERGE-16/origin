@@ -7,7 +7,8 @@ requires-python = ">=3.14"
 dependencies = [
     "matplotlib",
     "numpy",
-    "ruff"
+    "pillow>=12.3.0",
+    "ruff",
 ]
 
 [dependency-groups]
