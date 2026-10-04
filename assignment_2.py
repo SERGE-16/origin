@@ -99,7 +99,7 @@ def poincare_map(theta_dot, alpha, params, timestep=1e-4):
     touchdown_found=False
 
     for i in range(max_steps):
-        next_state=(state + timestep*model.evaluate_dynamics(0, state,step_params))
+        next_state=(state + timestep*model.dynamics(0, state,step_params))
 
         if (state[0] < theta_td and next_state[0] >= theta_td):
             touchdown_state=interpolate_state(state, next_state, theta_td)
@@ -114,7 +114,7 @@ def poincare_map(theta_dot, alpha, params, timestep=1e-4):
 
     # FIND NEXT POINCARE SECTION
     for j in range(max_steps):
-        next_state=(state + timestep*model.evaluate_dynamics(0, state, step_params))
+        next_state=(state + timestep*model.dynamics(0, state, step_params))
 
         if poincare_section_event(state, next_state, step_params):
             section_state=interpolate_state(state, next_state, 0.0)
@@ -408,7 +408,7 @@ def integrate_to_touchdown(state, alpha, params, timestep=1e-4):
 
     for i in range(max_steps):
 
-        next_state = (state + timestep * model.evaluate_dynamics(0, state, step_params))
+        next_state = (state + timestep * model.dynamics(0, state, step_params))
 
         # Check for RoA entry during the continuous integration
         roa_state, entered_roa = check_roa_entry(state, next_state, params)
@@ -436,7 +436,7 @@ def integrate_to_poincare(state, params, timestep=1e-4):
     max_steps = 20000
 
     for i in range(max_steps):
-        next_state = (state + timestep * model.evaluate_dynamics(0, state, step_params))
+        next_state = (state + timestep * model.dynamics(0, state, step_params))
 
         # Check for RoA entry during the continuous integration
         roa_state, entered_roa = check_roa_entry(state, next_state, params)
@@ -466,7 +466,7 @@ def simulate_balance(state, params, timestep=1e-4, duration=20.0):
     settled_time = 0.0
     for _ in range(int(np.ceil(duration / timestep))):
         balance_params["ankle_torque"] = feedback_linearization_controller(state, balance_params)
-        state = state + timestep * model.evaluate_dynamics(0, state, balance_params)
+        state = state + timestep * model.dynamics(0, state, balance_params)
         history.append(state.copy())
         settled_time = settled_time + timestep if np.max(np.abs(state)) < 1e-6 else 0.0
         if settled_time >= 0.5:
@@ -641,7 +641,7 @@ def generate_walking_gif(initial_state,alpha_history,params,output_path,timestep
         replay_params["ankle_torque"] = 0.0
         touchdown_done = False
         for i in range(40000):
-            next_state = state + timestep * model.evaluate_dynamics(0, state, replay_params)
+            next_state = state + timestep * model.dynamics(0, state, replay_params)
             roa_state, captured = check_roa_entry(state, next_state, replay_params)
             if captured:
                 state = roa_state

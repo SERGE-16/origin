@@ -27,7 +27,11 @@ sim_time = 5.0
 flag=True
 while (timestep<2 and flag):
     #just used the same name as the initial euler file I had made, in the future I would change the python file name from explicit_euler to something else
-    time_traj,state_traj=integrator(model.dynamics, initial_state,timestep,sim_time,params)
+    time_traj = np.arange(int(sim_time / timestep) + 1) * timestep
+    state_traj = np.zeros((2, time_traj.size))
+    state_traj[:, 0] = initial_state
+    for step, t in enumerate(time_traj[:-1]):
+        state_traj[:, step + 1] = integrator(model.dynamics, t, state_traj[:, step], timestep, params)
 
     #calculates energy with a model library? probably where negative KE comes from (switched the order to fix)
     kinetic_energy, potential_energy = model.calculate_energy(state_traj, params)

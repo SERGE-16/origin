@@ -15,7 +15,12 @@ def generate_params():
     return params
 
 
-def evaluate_dynamics(t, state, params):
+def generate_initial_condition():
+    """Start upright with enough forward velocity to step over the top."""
+    return np.array([0.0, 4.0])
+
+
+def dynamics(t, state, params):
     #verbatim from rimless_wheel
     gravity = params["gravity"]
     length = params["length"]

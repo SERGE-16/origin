@@ -34,6 +34,13 @@ def generate_params():
     }
     return params
 
+
+def generate_initial_condition():
+    """Start just after impact (theta = gamma - alpha) rolling forward."""
+    params = generate_params()
+    alpha = np.pi / params["N"]
+    return np.array([params["gamma"] - alpha, 1.0])
+
 #need to figure out how to detect if the 2nd leg is touching
 def is_touching(state, params):
     gamma=params["gamma"]

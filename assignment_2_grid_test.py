@@ -56,7 +56,7 @@ def poincare_map(theta_dot, alpha, params, timestep=1e-4):
     touchdown_found = False
 
     for _ in range(max_steps):
-        next_state = state + timestep * model.evaluate_dynamics(0, state, step_params)
+        next_state = state + timestep * model.dynamics(0, state, step_params)
 
         if state[0] < theta_td and next_state[0] >= theta_td:
             touchdown_state = interpolate_state(state, next_state, theta_td)
@@ -71,7 +71,7 @@ def poincare_map(theta_dot, alpha, params, timestep=1e-4):
 
     # FIND NEXT POINCARE SECTION
     for _ in range(max_steps):
-        next_state = state + timestep * model.evaluate_dynamics(0, state, step_params)
+        next_state = state + timestep * model.dynamics(0, state, step_params)
 
         if poincare_section_event(state, next_state, step_params):
             section_state = interpolate_state(state, next_state, 0.0)
